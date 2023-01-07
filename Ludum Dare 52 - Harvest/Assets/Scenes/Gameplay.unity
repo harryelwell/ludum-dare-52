@@ -337,7 +337,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.4
+  m_LinearDrag: 2.2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -358,8 +358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 826852533}
-  playerSpeed: 1
-  turnSpeed: 60
-  normalDrag: 0.4
-  turnDrag: 2
+  playerSpeed: 80
+  turnSpeed: 120
   cornValue: 0
