@@ -8,6 +8,7 @@ public class CowManager : MonoBehaviour
     public ParticleSystem cowParticle;
     public GameObject cowZone;
     public CowZoneManager cowZoneManager;
+    public bool cowTriggered;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class CowManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Player")
+        if(col.gameObject.tag == "Player" && cowTriggered == false)
         {
             PlayerManager playerManager = col.gameObject.GetComponent<PlayerManager>();
 
@@ -49,6 +50,8 @@ public class CowManager : MonoBehaviour
 
             // Start the Cow Zone coroutine to start spawning a new cow
             cowZoneManager.StartSpawnTimer();
+
+            cowTriggered = true;
         }
     }
 }
