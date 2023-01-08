@@ -7,6 +7,7 @@ TagManager:
   - Checkpoint
   - Corn
   - Harvester
+  - LoadingScreen
   layers:
   - Default
   - TransparentFX
