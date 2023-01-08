@@ -12,6 +12,11 @@ public class CornManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(assetLibrary == null)
+        {
+            assetLibrary = GameObject.FindGameObjectWithTag("GameController").GetComponent<AssetLibrary>();
+        }
+        
         SetCornlevel(Random.Range(0,4));
 
         if(cornLevel > 0 && cornLevel < 3)
@@ -68,12 +73,12 @@ public class CornManager : MonoBehaviour
 
             if(cornLevel == 2 && playerManager.cornValue < 5f)
             {
-                playerManager.cornValue += 0.01f;
+                playerManager.cornValue += 0.001f;
             }
 
             if(cornLevel == 3 && playerManager.cornValue < 5f)
             {
-                playerManager.cornValue += 0.03f;
+                playerManager.cornValue += 0.003f;
             }
 
             // Trigger particle
@@ -86,16 +91,16 @@ public class CornManager : MonoBehaviour
 
     IEnumerator GrowCorn()
     {
-        float growthCycleDuration = 10f;
+        float growthCycleDuration = Random.Range(8f,24f);
 
         while(cornLevel < 3)
         {
             yield return new WaitForSeconds(growthCycleDuration);
-            Debug.Log("Timer complete!");
+            //Debug.Log("Timer complete!");
 
             SetCornlevel(cornLevel + 1);
         }
 
-        Debug.Log("Corn has grown");
+        //Debug.Log("Corn has grown");
     }
 }
