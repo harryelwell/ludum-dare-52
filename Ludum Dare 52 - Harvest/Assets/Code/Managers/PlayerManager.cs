@@ -104,6 +104,7 @@ public class PlayerManager : MonoBehaviour
         movementAllowed = false;
 
         //trigger spining in a circle twice
+        StartCoroutine(SpinOut());
 
         yield return new WaitForSeconds(3f);
 
@@ -115,19 +116,19 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator SpinOut()
     {
-        float spinDuration = 1f;
-        int spinsCompleted = 0;
+        float spinDuration = 2f;
         float startRotation = transform.eulerAngles.z;
-        float endRotation = startRotation + 360f;
+        float endRotation = startRotation + 1080f;
         float timeElapsed = 0f;
 
-        while(timeElapsed < spinDuration && spinsCompleted < 2)
+        while(timeElapsed < spinDuration)
         {
             timeElapsed += Time.deltaTime;
-            float zRotation = Mathf.Lerp(startRotation, endRotation, timeElapsed/spinDuration) % 360f;
+            float zRotation = Mathf.Lerp(startRotation, endRotation, timeElapsed/spinDuration) % 1080f;
             transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,zRotation);
-            spinsCompleted += 1;
             yield return null;
         }
+
+        //transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,startRotation);
     }
 }

@@ -8,4 +8,7 @@ public class AssetLibrary : MonoBehaviour
     public Sprite cornBase;
     public Sprite cornShort;
     public Sprite cornLong;
+
+    [Header("Cow Stuff")]
+    public GameObject cowPrefab;
 }

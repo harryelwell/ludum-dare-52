@@ -6,6 +6,8 @@ public class CowManager : MonoBehaviour
 {
     public AssetLibrary assetLibrary;
     public ParticleSystem cowParticle;
+    public GameObject cowZone;
+    public CowZoneManager cowZoneManager;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +48,7 @@ public class CowManager : MonoBehaviour
             cowParticle.Play();
 
             // Start the Cow Zone coroutine to start spawning a new cow
-            // SpawnCowCoroutine;
+            cowZoneManager.StartSpawnTimer();
         }
     }
 }
