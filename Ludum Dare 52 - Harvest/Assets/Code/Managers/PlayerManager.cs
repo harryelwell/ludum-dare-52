@@ -6,12 +6,15 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     [Header("Object References")]
+    public GameManager gameManager;
     public PlayerActions playerActions;
     public Rigidbody2D playerRigidbody;
     [Header("Player Settings")]
     public float playerSpeed;
     public float turnSpeed;
     public float cornValue; // min 0, max 3 (+0.3 each time you hit corn)
+    [Header("Gameplay Parameters")]
+    public bool movementAllowed;
     
     void Awake()
     {
@@ -21,6 +24,11 @@ public class PlayerManager : MonoBehaviour
         if (playerRigidbody == null)
         {
             Debug.Log("Rigidbody2D is null!");
+        }
+
+        if (gameManager == null)
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         }
     }
 
@@ -48,8 +56,11 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        PlayerVelocityAcceleration();
-        PlayerVelocityRotation();
+        if(gameManager.raceStarted == true && movementAllowed == true)
+        {
+            PlayerVelocityAcceleration();
+            PlayerVelocityRotation();
+        }
     }
 
     void PlayerVelocityAcceleration()
@@ -86,5 +97,37 @@ public class PlayerManager : MonoBehaviour
         calculatedTurnValue *= (1 + (cornValue * 0.5f));
 
         transform.Rotate(0,0,calculatedTurnValue * turnSpeed * Time.fixedDeltaTime);
+    }
+
+    public IEnumerator CowCollision(GameObject cow)
+    {
+        movementAllowed = false;
+
+        //trigger spining in a circle twice
+
+        yield return new WaitForSeconds(3f);
+
+        Debug.Log("Start moving again!");
+        movementAllowed = true;
+
+        Destroy(cow);
+    }
+
+    IEnumerator SpinOut()
+    {
+        float spinDuration = 1f;
+        int spinsCompleted = 0;
+        float startRotation = transform.eulerAngles.z;
+        float endRotation = startRotation + 360f;
+        float timeElapsed = 0f;
+
+        while(timeElapsed < spinDuration && spinsCompleted < 2)
+        {
+            timeElapsed += Time.deltaTime;
+            float zRotation = Mathf.Lerp(startRotation, endRotation, timeElapsed/spinDuration) % 360f;
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,zRotation);
+            spinsCompleted += 1;
+            yield return null;
+        }
     }
 }

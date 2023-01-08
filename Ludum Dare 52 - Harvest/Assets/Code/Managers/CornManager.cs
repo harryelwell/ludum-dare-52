@@ -73,12 +73,12 @@ public class CornManager : MonoBehaviour
 
             if(cornLevel == 2 && playerManager.cornValue < 5f)
             {
-                playerManager.cornValue += 0.001f;
+                playerManager.cornValue += 0.002f;
             }
 
             if(cornLevel == 3 && playerManager.cornValue < 5f)
             {
-                playerManager.cornValue += 0.003f;
+                playerManager.cornValue += 0.005f;
             }
 
             // Trigger particle
@@ -97,6 +97,7 @@ public class CornManager : MonoBehaviour
         {
             yield return new WaitForSeconds(growthCycleDuration);
             //Debug.Log("Timer complete!");
+            growthCycleDuration = Random.Range(8f,24f);
 
             SetCornlevel(cornLevel + 1);
         }

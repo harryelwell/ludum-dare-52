@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Checkpoint
   - Corn
+  - Harvester
   layers:
   - Default
   - TransparentFX
