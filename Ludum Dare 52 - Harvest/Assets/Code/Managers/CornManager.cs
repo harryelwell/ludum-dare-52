@@ -17,7 +17,8 @@ public class CornManager : MonoBehaviour
             assetLibrary = GameObject.FindGameObjectWithTag("GameController").GetComponent<AssetLibrary>();
         }
         
-        SetCornlevel(Random.Range(0,4));
+        //SetCornlevel(Random.Range(0,4));
+        SetCornlevel(3);
 
         if(cornLevel > 0 && cornLevel < 3)
         {
@@ -71,14 +72,14 @@ public class CornManager : MonoBehaviour
             // Stop any corn growth
             StopAllCoroutines();
 
-            if(cornLevel == 2 && playerManager.cornValue < 5f)
+            if(cornLevel == 2 && playerManager.cornValue < 4.4f)
             {
-                playerManager.cornValue += 0.002f;
+                playerManager.cornValue += 0.0015f;
             }
 
-            if(cornLevel == 3 && playerManager.cornValue < 5f)
+            if(cornLevel == 3 && playerManager.cornValue < 4.4f)
             {
-                playerManager.cornValue += 0.005f;
+                playerManager.cornValue += 0.004f;
             }
 
             // Trigger particle
@@ -91,7 +92,7 @@ public class CornManager : MonoBehaviour
 
     IEnumerator GrowCorn()
     {
-        float growthCycleDuration = Random.Range(8f,24f);
+        float growthCycleDuration = Random.Range(15f,45f);
 
         while(cornLevel < 3)
         {

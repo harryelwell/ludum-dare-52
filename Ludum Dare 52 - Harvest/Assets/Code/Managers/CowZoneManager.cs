@@ -33,7 +33,7 @@ public class CowZoneManager : MonoBehaviour
 
     public IEnumerator SpawnTimer()
     {
-        float waitPeriod = Random.Range(15f,90f);
+        float waitPeriod = Random.Range(30f,120f);
 
         yield return new WaitForSeconds(waitPeriod);
 

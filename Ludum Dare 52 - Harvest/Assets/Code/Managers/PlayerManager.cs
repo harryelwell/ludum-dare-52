@@ -76,7 +76,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if(accelerationValue < 0f)
         {
-            playerRigidbody.velocity = -transform.up * (calculatedPlayerSpeed * 0.3f) * Time.fixedDeltaTime;
+            playerRigidbody.velocity = -transform.up * (calculatedPlayerSpeed * 0.5f) * Time.fixedDeltaTime;
         }
         else
         {
@@ -94,7 +94,7 @@ public class PlayerManager : MonoBehaviour
             calculatedTurnValue = -turnValue;
         }
 
-        calculatedTurnValue *= (1 + (cornValue * 0.5f));
+        calculatedTurnValue *= (1 + (cornValue * 0.15f));
 
         transform.Rotate(0,0,calculatedTurnValue * turnSpeed * Time.fixedDeltaTime);
     }
