@@ -5,6 +5,7 @@ using UnityEngine;
 public class CowManager : MonoBehaviour
 {
     public AssetLibrary assetLibrary;
+    public SoundFXManager soundFXManager;
     public ParticleSystem cowParticle;
     public GameObject cowZone;
     public CowZoneManager cowZoneManager;
@@ -16,6 +17,11 @@ public class CowManager : MonoBehaviour
         if(assetLibrary == null)
         {
             assetLibrary = GameObject.FindGameObjectWithTag("GameController").GetComponent<AssetLibrary>();
+        }
+
+        if(soundFXManager == null)
+        {
+            soundFXManager = GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundFXManager>();
         }
     }
 
@@ -47,6 +53,8 @@ public class CowManager : MonoBehaviour
 
             // Trigger particle
             cowParticle.Play();
+
+            soundFXManager.cowHit.Play();
 
             // Start the Cow Zone coroutine to start spawning a new cow
             cowZoneManager.StartSpawnTimer();

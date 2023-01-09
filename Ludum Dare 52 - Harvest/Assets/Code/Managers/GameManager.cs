@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Object References")]
     public GameData gameData;
     public AssetLibrary assetLibrary;
+    public SoundFXManager soundFXManager;
+    public AudioSource musicManager;
     public GameObject trafficLights;
     public SpriteRenderer trafficLightsSprite;
     [Header("Gameplay Parameters")]
@@ -34,6 +36,16 @@ public class GameManager : MonoBehaviour
             gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameData>();
         }
 
+        if(soundFXManager == null)
+        {
+            soundFXManager = GameObject.FindGameObjectWithTag("SFXManager").GetComponent<SoundFXManager>();
+        }
+
+        if(musicManager == null)
+        {
+            musicManager = GameObject.FindGameObjectWithTag("MusicManager").GetComponent<AudioSource>();
+        }
+
         CountCheckpoints();
         StartCoroutine(RaceCountdown());
     }
@@ -56,6 +68,8 @@ public class GameManager : MonoBehaviour
             if(lapCount >= totalLaps)
             {
                 //Debug.Log("Race over!");
+                musicManager.Stop();
+                soundFXManager.raceOver.Play();
                 StartCoroutine(RaceFinish());
             }
         }
@@ -99,13 +113,17 @@ public class GameManager : MonoBehaviour
             }
 
             // Play a beep sound
+            soundFXManager.trafficLight.Play();
 
             secondsRemaining -= 1;
         }
 
         yield return new WaitForSeconds(1);
         Debug.Log("GO! GO! GO!");
+        soundFXManager.goGoGo.Play();
+
         // Start game music
+        musicManager.Play();
         // Change sprite to green light
         trafficLightsSprite.sprite = assetLibrary.trafficLightGo;
 

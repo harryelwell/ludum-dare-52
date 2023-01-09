@@ -7,11 +7,14 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     
+public SoundFXManager soundFXManager;
 public GameObject comingSoonText;
 public GameObject raceTimeText;
 
     public void PlayTimeTrial()
     {
+        soundFXManager.buttonClick.Play();
+
         if(comingSoonText != null)
         {
             Destroy(comingSoonText);
@@ -19,7 +22,7 @@ public GameObject raceTimeText;
 
         if(raceTimeText != null)
         {
-            Destroy(comingSoonText);
+            Destroy(raceTimeText);
         }
         
         Image loadingScreen = GameObject.FindGameObjectWithTag("LoadingScreen").GetComponent<Image>();
@@ -30,6 +33,7 @@ public GameObject raceTimeText;
 
     public void ReturnToMenu()
     {
+        soundFXManager.buttonClick.Play();
         SceneManager.LoadScene(0);
     }
 

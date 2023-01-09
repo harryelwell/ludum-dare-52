@@ -13,6 +13,8 @@ TagManager:
   - LapCountUI
   - TotalLapsUI
   - RaceTimeUI
+  - SFXManager
+  - MusicManager
   layers:
   - Default
   - TransparentFX
