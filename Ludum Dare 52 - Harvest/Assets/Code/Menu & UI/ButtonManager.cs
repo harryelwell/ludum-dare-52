@@ -8,10 +8,16 @@ public class ButtonManager : MonoBehaviour
 {
     
 public GameObject comingSoonText;
+public GameObject raceTimeText;
 
     public void PlayTimeTrial()
     {
         if(comingSoonText != null)
+        {
+            Destroy(comingSoonText);
+        }
+
+        if(raceTimeText != null)
         {
             Destroy(comingSoonText);
         }

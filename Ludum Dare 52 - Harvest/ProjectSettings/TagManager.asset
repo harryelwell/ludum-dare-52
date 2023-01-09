@@ -9,6 +9,10 @@ TagManager:
   - Harvester
   - LoadingScreen
   - TrafficLight
+  - GameData
+  - LapCountUI
+  - TotalLapsUI
+  - RaceTimeUI
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     
     [Header("Object References")]
+    public GameData gameData;
     public AssetLibrary assetLibrary;
     public GameObject trafficLights;
     public SpriteRenderer trafficLightsSprite;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [Header("Race Progress")]
     public int lapCount;
     public int totalLaps;
+    public float raceTimeElapsed;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour
             assetLibrary = GameObject.FindGameObjectWithTag("GameController").GetComponent<AssetLibrary>();
         }
 
+        if(gameData == null)
+        {
+            gameData = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameData>();
+        }
+
         CountCheckpoints();
         StartCoroutine(RaceCountdown());
     }
@@ -34,7 +41,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        TrackRaceTime();
     }
 
     public void FinishLineCrossed()
@@ -45,11 +52,11 @@ public class GameManager : MonoBehaviour
             {
                 lapCount += 1;
             }
-
+            
             if(lapCount >= totalLaps)
             {
                 //Debug.Log("Race over!");
-                SceneManager.LoadScene(2);
+                StartCoroutine(RaceFinish());
             }
         }
     }
@@ -115,5 +122,23 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         Destroy(trafficLights);
+    }
+
+    void TrackRaceTime()
+    {
+        if(raceStarted == true)
+        {
+            raceTimeElapsed += Time.deltaTime;
+        }
+    }
+
+    IEnumerator RaceFinish()
+    {
+        raceStarted = false;
+        gameData.latestRaceTime = raceTimeElapsed;
+
+        yield return new WaitForSeconds(2);
+
+        SceneManager.LoadScene(2);
     }
 }

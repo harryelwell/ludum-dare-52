@@ -33,6 +33,7 @@ public class CheckpointManager : MonoBehaviour
                 Debug.Log("Crossed finish line!");
                 
                 // Do a check thing in game manager to either do nothing (if starting grid), increase the lap count, or win the race
+                gameManager.lastCheckpoint = checkpointNumber;
                 gameManager.FinishLineCrossed();
             }
             else
