@@ -8,6 +8,7 @@ TagManager:
   - Corn
   - Harvester
   - LoadingScreen
+  - TrafficLight
   layers:
   - Default
   - TransparentFX

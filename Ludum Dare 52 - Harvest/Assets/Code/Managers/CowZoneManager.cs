@@ -44,8 +44,8 @@ public class CowZoneManager : MonoBehaviour
     {
         Vector3 spawnLocation = transform.position;
 
-        float xPosition = Random.Range(-3.75f,3.75f);
-        float yPosition = Random.Range(-3.75f,3.75f);
+        float xPosition = Random.Range(-3.4f,3.4f);
+        float yPosition = Random.Range(-3.4f,3.4f);
 
         if(isCorner == true)
         {

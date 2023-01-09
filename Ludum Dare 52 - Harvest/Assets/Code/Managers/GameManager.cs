@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     
+    [Header("Object References")]
+    public AssetLibrary assetLibrary;
+    public GameObject trafficLights;
+    public SpriteRenderer trafficLightsSprite;
     [Header("Gameplay Parameters")]
     public bool raceStarted;
     [Header("Checkpoint Tracking")]
@@ -17,6 +22,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(assetLibrary == null)
+        {
+            assetLibrary = GameObject.FindGameObjectWithTag("GameController").GetComponent<AssetLibrary>();
+        }
+
         CountCheckpoints();
         StartCoroutine(RaceCountdown());
     }
@@ -38,7 +48,8 @@ public class GameManager : MonoBehaviour
 
             if(lapCount >= totalLaps)
             {
-                Debug.Log("Race over!");
+                //Debug.Log("Race over!");
+                SceneManager.LoadScene(2);
             }
         }
     }
@@ -65,6 +76,21 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Race starts in... {secondsRemaining}");
             // Change lights sprite to next level down
+            if(secondsRemaining == 3)
+            {
+                trafficLightsSprite.sprite = assetLibrary.trafficLight2;
+            }
+
+            if(secondsRemaining == 2)
+            {
+                trafficLightsSprite.sprite = assetLibrary.trafficLight1;
+            }
+
+            if(secondsRemaining == 1)
+            {
+                trafficLightsSprite.sprite = assetLibrary.trafficLight0;
+            }
+
             // Play a beep sound
 
             secondsRemaining -= 1;
@@ -74,6 +100,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GO! GO! GO!");
         // Start game music
         // Change sprite to green light
+        trafficLightsSprite.sprite = assetLibrary.trafficLightGo;
 
         raceStarted = true;
 
@@ -84,5 +111,9 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<PlayerManager>().movementAllowed = true;
         }
+
+        yield return new WaitForSeconds(1);
+
+        Destroy(trafficLights);
     }
 }
